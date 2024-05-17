@@ -6,13 +6,12 @@ function Title({ children }) {
 
 const styles = StyleSheet.create({
   title: {
+    fontFamily: "sans-regular",
     width: "80%",
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
     color: Colors.accent500,
-    borderColor: Colors.accent500,
-    borderWidth: 1,
     padding: 10,
   },
 });

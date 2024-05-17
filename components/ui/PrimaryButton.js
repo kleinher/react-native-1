@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
     opacity: 0.75,
   },
   outsideContainer: {
-    flex: 1,
     margin: 2,
     overflow: "hidden",
     borderRadius: 128,
@@ -29,7 +28,7 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: "#58063c",
     borderRadius: 128,
-    paddingHorizontal: 20,
+    width: 150,
     paddingVertical: 10,
   },
   text: {

@@ -2,6 +2,8 @@ import { TextInput, StyleSheet, View, Alert } from "react-native";
 import PrimaryButton from "../components/ui/PrimaryButton";
 import { useState } from "react";
 import Colors from "../constants/colors";
+import Card from "../components/ui/Card";
+import InstructionText from "../components/ui/InstructionText";
 function StartGameScreen({ startGameHandler }) {
   const [enteredText, setEnteredText] = useState("");
 
@@ -19,7 +21,8 @@ function StartGameScreen({ startGameHandler }) {
     startGameHandler(chosenNumber);
   }
   return (
-    <View style={styles.inputContainer}>
+    <Card>
+      <InstructionText style={styles.title}> Enter a number </InstructionText>
       <View>
         <TextInput
           style={styles.numberInput}
@@ -33,17 +36,21 @@ function StartGameScreen({ startGameHandler }) {
         <PrimaryButton>Reset</PrimaryButton>
         <PrimaryButton onPress={confirmInput}>Confirm</PrimaryButton>
       </View>
-    </View>
+    </Card>
   );
 }
 
 export default StartGameScreen;
 
 const styles = StyleSheet.create({
+  title: {
+    marginBottom: 20,
+  },
   buttonContainer: {
     marginHorizontal: 20,
   },
   buttonsContainer: {
+    marginVertical: 10,
     flexDirection: "row",
     justifyContent: "center",
   },
@@ -64,7 +71,7 @@ const styles = StyleSheet.create({
   },
   numberInput: {
     height: 40,
-    width: 40,
+    width: 50,
     fontSize: 25,
     marginVertical: 10,
     color: Colors.accent500,
