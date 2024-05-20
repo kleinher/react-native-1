@@ -48,7 +48,7 @@ function GameOverScreen({ rounds, number, restartGame }) {
 export default GameOverScreen;
 const styles = StyleSheet.create({
   mainText: {
-    fontFamily: "sans-regular",
+    fontFamily: "sans-bold",
     fontSize: 25,
     textAlign: "center",
     marginVertical: 20,

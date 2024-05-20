@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   logText: {
-    fontFamily: "sans-regular",
+    fontFamily: "sans-bold",
     fontSize: 15,
   },
   logs: {

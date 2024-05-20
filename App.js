@@ -1,57 +1,50 @@
-import StartGameScreen from "./screens/StartGameScreen";
 import { ImageBackground, SafeAreaView, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useFonts } from "expo-font";
 import Colors from "./constants/colors";
+import StartGameScreen from "./screens/StartGameScreen";
 import GameScreen from "./screens/GameScreen";
 import GameOverScreen from "./screens/GameOverScreen";
 import * as SplashScreen from "expo-splash-screen";
 
+SplashScreen.preventAutoHideAsync();
+
 export default function App() {
   const [number, setNumber] = useState();
   const [gameOver, setGameOver] = useState(false);
-  const [roundsAmount, setRoundsAmount] = useState(0);
+
+  const [fontsLoaded] = useFonts({
+    "sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
+    "sans-regular": require("./assets/fonts/OpenSans-Regular.ttf"),
+  });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   function startGameHandler(chosenNumber) {
     setNumber(chosenNumber);
   }
 
-  const [fontLoaded] = useFonts({
-    "sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
-    "sans-regular": require("./assets/fonts/OpenSans-Regular.ttf"),
-  });
-
-  SplashScreen.preventAutoHideAsync();
-  if (fontLoaded) {
-    SplashScreen.hideAsync();
-  }
-
-  function restartGameHandler() {
-    setNumber(null);
-    setGameOver(false);
-  }
-
-  function gameOverHandler(roundsAmount) {
+  function gameOverHandler() {
     setGameOver(true);
-    setRoundsAmount(roundsAmount);
   }
 
   let content = <StartGameScreen startGameHandler={startGameHandler} />;
 
-  if (number) {
+  if (number && !gameOver) {
     content = (
-      <GameScreen innitialNumber={number} handleGameOver={gameOverHandler} />
+      <GameScreen initialNumber={number} handleGameOver={gameOverHandler} />
     );
-  }
-  if (gameOver) {
-    content = (
-      <GameOverScreen
-        rounds={roundsAmount}
-        number={number}
-        restartGame={restartGameHandler}
-      />
-    );
+  } else if (gameOver) {
+    content = <GameOverScreen />;
   }
 
   return (
@@ -65,7 +58,9 @@ export default function App() {
         imageStyle={{ opacity: 0.1 }}
         style={styles.rootScreen}
       >
-        <SafeAreaView style={styles.rootScreen}>{content}</SafeAreaView>
+        <SafeAreaView style={styles.rootScreen} onLayout={onLayoutRootView}>
+          {content}
+        </SafeAreaView>
       </ImageBackground>
     </LinearGradient>
   );

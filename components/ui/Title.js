@@ -6,7 +6,7 @@ function Title({ children, style }) {
 
 const styles = StyleSheet.create({
   title: {
-    fontFamily: "sans-regular",
+    fontFamily: "sans-bold",
     width: "80%",
     fontSize: 35,
     textAlign: "center",
