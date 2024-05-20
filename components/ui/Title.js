@@ -8,8 +8,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "sans-regular",
     width: "80%",
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 35,
     textAlign: "center",
     color: Colors.accent500,
     padding: 10,

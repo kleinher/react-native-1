@@ -11,6 +11,8 @@ import * as SplashScreen from "expo-splash-screen";
 export default function App() {
   const [number, setNumber] = useState();
   const [gameOver, setGameOver] = useState(false);
+  const [roundsAmount, setRoundsAmount] = useState(0);
+
   function startGameHandler(chosenNumber) {
     setNumber(chosenNumber);
   }
@@ -25,8 +27,14 @@ export default function App() {
     SplashScreen.hideAsync();
   }
 
-  function gameOverHandler() {
+  function restartGameHandler() {
+    setNumber(null);
+    setGameOver(false);
+  }
+
+  function gameOverHandler(roundsAmount) {
     setGameOver(true);
+    setRoundsAmount(roundsAmount);
   }
 
   let content = <StartGameScreen startGameHandler={startGameHandler} />;
@@ -36,9 +44,14 @@ export default function App() {
       <GameScreen innitialNumber={number} handleGameOver={gameOverHandler} />
     );
   }
-
   if (gameOver) {
-    content = <GameOverScreen />;
+    content = (
+      <GameOverScreen
+        rounds={roundsAmount}
+        number={number}
+        restartGame={restartGameHandler}
+      />
+    );
   }
 
   return (
@@ -52,7 +65,7 @@ export default function App() {
         imageStyle={{ opacity: 0.1 }}
         style={styles.rootScreen}
       >
-        <SafeAreaView styles={styles.rootScreen}>{content}</SafeAreaView>
+        <SafeAreaView style={styles.rootScreen}>{content}</SafeAreaView>
       </ImageBackground>
     </LinearGradient>
   );
