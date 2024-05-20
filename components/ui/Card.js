@@ -1,15 +1,14 @@
 import { View, StyleSheet } from "react-native";
 import Colors from "../../constants/colors";
 
-function Card({ children }) {
-  return <View style={styles.inputContainer}>{children}</View>;
+function Card({ children, style }) {
+  return <View style={[styles.inputContainer, style]}>{children}</View>;
 }
 
 export default Card;
 const styles = StyleSheet.create({
   inputContainer: {
     alignItems: "center",
-    marginTop: 100,
     marginHorizontal: 20,
     borderRadius: 10,
     padding: 20,

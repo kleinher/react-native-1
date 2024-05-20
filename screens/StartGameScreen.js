@@ -1,9 +1,17 @@
-import { TextInput, StyleSheet, View, Alert } from "react-native";
+import {
+  TextInput,
+  StyleSheet,
+  View,
+  Alert,
+  KeyboardAvoidingView,
+  ScrollView,
+} from "react-native";
 import PrimaryButton from "../components/ui/PrimaryButton";
 import { useState } from "react";
 import Colors from "../constants/colors";
 import Card from "../components/ui/Card";
 import InstructionText from "../components/ui/InstructionText";
+import Title from "../components/ui/Title";
 function StartGameScreen({ startGameHandler }) {
   const [enteredText, setEnteredText] = useState("");
 
@@ -21,28 +29,43 @@ function StartGameScreen({ startGameHandler }) {
     startGameHandler(chosenNumber);
   }
   return (
-    <Card>
-      <InstructionText style={styles.title}> Enter a number </InstructionText>
-      <View>
-        <TextInput
-          style={styles.numberInput}
-          maxLength={2}
-          keyboardType="number-pad"
-          onChangeText={handleTextChange}
-          value={enteredText}
-        />
-      </View>
-      <View style={styles.buttonsContainer}>
-        <PrimaryButton>Reset</PrimaryButton>
-        <PrimaryButton onPress={confirmInput}>Confirm</PrimaryButton>
-      </View>
-    </Card>
+    <ScrollView style={{ flex: 1 }}>
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior="position">
+        <View style={styles.rootContainer}>
+          <Title style={styles.title}>Start a new game!</Title>
+          <Card>
+            <InstructionText style={styles.title}>
+              {" "}
+              Enter a number{" "}
+            </InstructionText>
+            <View>
+              <TextInput
+                style={styles.numberInput}
+                maxLength={2}
+                keyboardType="number-pad"
+                onChangeText={handleTextChange}
+                value={enteredText}
+              />
+            </View>
+            <View style={styles.buttonsContainer}>
+              <PrimaryButton>Reset</PrimaryButton>
+              <PrimaryButton onPress={confirmInput}>Confirm</PrimaryButton>
+            </View>
+          </Card>
+        </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 }
 
 export default StartGameScreen;
 
 const styles = StyleSheet.create({
+  rootContainer: {
+    flex: 1,
+    alignItems: "center",
+    marginTop: 100,
+  },
   title: {
     marginBottom: 20,
   },
@@ -56,7 +79,6 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     alignItems: "center",
-    marginTop: 100,
     marginHorizontal: 20,
     borderRadius: 10,
     padding: 20,
